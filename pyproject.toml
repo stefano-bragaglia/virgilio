@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "virgilio"
 version = "1.0.0"
-description = "A polling-based folder-watching daemon with an overridable hook interface."
+description = "VirgilIO — a polling-based folder-watching daemon with an overridable hook interface."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
