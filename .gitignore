@@ -5,6 +5,7 @@ __pycache__/
 .idea/
 .DS_Store
 .env
+.pypirc
 *.egg-info/
 dist/
 .coverage
