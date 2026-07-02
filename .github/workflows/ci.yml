@@ -31,7 +31,7 @@ jobs:
         run: ruff check .
 
       - name: radon cc
-        run: radon cc -n B src/observer
+        run: radon cc -n B src/virgilio
 
       - name: pytest --cov
-        run: pytest --cov=src/observer --cov-fail-under=90
+        run: pytest --cov=src/virgilio --cov-fail-under=90

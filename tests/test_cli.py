@@ -3,17 +3,17 @@ from pathlib import Path
 
 import pytest
 
-from observer.observer import Observer
+from virgilio.virgilio import Virgilio
 
 
 @pytest.fixture
 def run_calls(monkeypatch):
-    calls: list[tuple[Observer, dict]] = []
+    calls: list[tuple[Virgilio, dict]] = []
 
     def fake_run(self, **kwargs):
         calls.append((self, kwargs))
 
-    monkeypatch.setattr(Observer, "run", fake_run)
+    monkeypatch.setattr(Virgilio, "run", fake_run)
     return calls
 
 
@@ -23,7 +23,7 @@ def test_nonexistent_folder_exits_nonzero_and_does_not_call_run(
     missing = tmp_path / "does_not_exist"
 
     with pytest.raises(SystemExit) as exc_info:
-        Observer.main([str(missing)])
+        Virgilio.main([str(missing)])
 
     assert exc_info.value.code != 0
     assert capsys.readouterr().err.strip() != ""
@@ -37,7 +37,7 @@ def test_folder_is_a_file_exits_nonzero_and_does_not_call_run(
     a_file.write_text("content")
 
     with pytest.raises(SystemExit) as exc_info:
-        Observer.main([str(a_file)])
+        Virgilio.main([str(a_file)])
 
     assert exc_info.value.code != 0
     assert capsys.readouterr().err.strip() != ""
@@ -45,11 +45,11 @@ def test_folder_is_a_file_exits_nonzero_and_does_not_call_run(
 
 
 def test_valid_folder_no_flags_calls_run_with_defaults(tmp_path: Path, run_calls) -> None:
-    Observer.main([str(tmp_path)])
+    Virgilio.main([str(tmp_path)])
 
     assert len(run_calls) == 1
     instance, kwargs = run_calls[0]
-    assert isinstance(instance, Observer)
+    assert isinstance(instance, Virgilio)
     assert kwargs == {
         "recursive": False,
         "interval": 1.0,
@@ -59,7 +59,7 @@ def test_valid_folder_no_flags_calls_run_with_defaults(tmp_path: Path, run_calls
 
 
 def test_all_flags_given_calls_run_with_those_values(tmp_path: Path, run_calls) -> None:
-    Observer.main(
+    Virgilio.main(
         [
             str(tmp_path),
             "--recursive",
@@ -81,7 +81,7 @@ def test_all_flags_given_calls_run_with_those_values(tmp_path: Path, run_calls) 
 
 
 def test_short_forms_match_long_forms(tmp_path: Path, run_calls) -> None:
-    Observer.main([str(tmp_path), "-r", "-i", "0.5"])
+    Virgilio.main([str(tmp_path), "-r", "-i", "0.5"])
 
     assert len(run_calls) == 1
     _instance, kwargs = run_calls[0]
@@ -91,14 +91,14 @@ def test_short_forms_match_long_forms(tmp_path: Path, run_calls) -> None:
 
 def test_non_numeric_interval_exits_nonzero_via_argparse(tmp_path: Path, run_calls) -> None:
     with pytest.raises(SystemExit) as exc_info:
-        Observer.main([str(tmp_path), "--interval", "not-a-number"])
+        Virgilio.main([str(tmp_path), "--interval", "not-a-number"])
 
     assert exc_info.value.code != 0
     assert run_calls == []
 
 
 def test_subclass_main_constructs_subclass_instance(tmp_path: Path, run_calls) -> None:
-    class MySubclass(Observer):
+    class MySubclass(Virgilio):
         pass
 
     MySubclass.main([str(tmp_path)])
@@ -109,15 +109,15 @@ def test_subclass_main_constructs_subclass_instance(tmp_path: Path, run_calls) -
 
 
 def test_module_main_uses_real_sys_argv(tmp_path: Path, run_calls, monkeypatch) -> None:
-    from observer.main import main
+    from virgilio.main import main
 
-    monkeypatch.setattr(sys, "argv", ["observer", str(tmp_path)])
+    monkeypatch.setattr(sys, "argv", ["virgilio", str(tmp_path)])
 
     main()
 
     assert len(run_calls) == 1
     instance, kwargs = run_calls[0]
-    assert isinstance(instance, Observer)
+    assert isinstance(instance, Virgilio)
     assert kwargs == {
         "recursive": False,
         "interval": 1.0,

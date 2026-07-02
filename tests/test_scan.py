@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from observer.scan import hash_file, walk
+from virgilio.scan import hash_file, walk
 
 
 def test_walk_empty_dir_returns_empty_list(tmp_path: Path) -> None:

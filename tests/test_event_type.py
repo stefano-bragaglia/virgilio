@@ -1,4 +1,4 @@
-from observer.events import EventType
+from virgilio.events import EventType
 
 
 def test_has_exactly_five_members():

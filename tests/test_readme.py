@@ -28,7 +28,7 @@ def test_readme_exists() -> None:
 
 def test_readme_shows_plain_cli_usage() -> None:
     text = _readme_text()
-    assert "observer <folder>" in text or re.search(r"observer\s+\S+", text)
+    assert "virgilio <folder>" in text or re.search(r"virgilio\s+\S+", text)
 
 
 def test_readme_mentions_all_four_flags() -> None:
@@ -44,9 +44,9 @@ def test_readme_has_python_code_block_with_subclass_and_main_call() -> None:
     matching = [
         block
         for block in blocks
-        if re.search(r"class\s+\w+\s*\(\s*Observer\s*\)", block) and ".main(" in block
+        if re.search(r"class\s+\w+\s*\(\s*Virgilio\s*\)", block) and ".main(" in block
     ]
-    assert matching, "no python code block defines a subclass of Observer and calls .main()"
+    assert matching, "no python code block defines a subclass of Virgilio and calls .main()"
 
 
 def test_readme_subclass_example_overrides_a_hook() -> None:
@@ -54,9 +54,9 @@ def test_readme_subclass_example_overrides_a_hook() -> None:
     matching = [
         block
         for block in blocks
-        if re.search(r"class\s+\w+\s*\(\s*Observer\s*\)", block) and ".main(" in block
+        if re.search(r"class\s+\w+\s*\(\s*Virgilio\s*\)", block) and ".main(" in block
     ]
-    assert matching, "no python code block defines a subclass of Observer and calls .main()"
+    assert matching, "no python code block defines a subclass of Virgilio and calls .main()"
 
     assert any(
         any(f"def {hook}" in block for hook in HOOK_NAMES) for block in matching

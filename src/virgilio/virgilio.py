@@ -6,10 +6,10 @@ import threading
 from datetime import datetime
 from pathlib import Path
 
-from observer.events import EventType
+from virgilio.events import EventType
 
 
-class Observer:
+class Virgilio:
     def __init__(self, folder: str | os.PathLike) -> None:
         self._folder = Path(folder)
         self._log_path = self._folder / "log.txt"
@@ -64,7 +64,7 @@ class Observer:
         include_hidden: bool = False,
         report_existing: bool = False,
     ) -> None:
-        from observer.detector import ChangeDetector
+        from virgilio.detector import ChangeDetector
 
         self._stop_event.clear()
         self._install_signal_handlers()
@@ -78,7 +78,7 @@ class Observer:
             detector.poll(paths)
 
     def _watched_paths(self, *, recursive: bool, include_hidden: bool) -> list[Path]:
-        from observer.scan import walk
+        from virgilio.scan import walk
 
         log_rel = self._log_path.relative_to(self._folder)
         return [
@@ -103,7 +103,7 @@ class Observer:
     @classmethod
     def main(cls, argv: list[str] | None = None) -> None:
         parser = argparse.ArgumentParser(
-            prog="observer",
+            prog="virgilio",
             description=(
                 "Watch a folder for file creations, modifications, and deletions. "
                 "Polls the filesystem rather than relying on OS-native filesystem-event "
@@ -111,7 +111,7 @@ class Observer:
                 "Every event is logged to log.txt inside the watched folder."
             ),
             epilog=(
-                "Example: observer ./data --recursive --interval 0.5 "
+                "Example: virgilio ./data --recursive --interval 0.5 "
                 "--include-hidden --report-existing"
             ),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter,
