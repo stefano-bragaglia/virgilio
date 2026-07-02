@@ -1,6 +1,6 @@
-# VirgilIO
+# Virgil.IO
 
-![VirgilIO logo](https://raw.githubusercontent.com/stefano-bragaglia/virgilio/main/logo.png)
+![Virgil.IO logo](https://raw.githubusercontent.com/stefano-bragaglia/virgilio/main/logo.png)
 
 [![CI](https://github.com/stefano-bragaglia/virgilio/actions/workflows/ci.yml/badge.svg)](https://github.com/stefano-bragaglia/virgilio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/stefano-bragaglia/virgilio/blob/main/LICENSE)
