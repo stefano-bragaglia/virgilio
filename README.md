@@ -9,14 +9,6 @@
 [![GitHub tag](https://img.shields.io/github/v/tag/stefano-bragaglia/observer.svg)](https://github.com/stefano-bragaglia/observer/tags)
 [![GitHub last commit](https://img.shields.io/github/last-commit/stefano-bragaglia/observer/main.svg)](https://github.com/stefano-bragaglia/observer/commits/main)
 
-[![Contributors](https://img.shields.io/github/contributors/stefano-bragaglia/observer.svg)](https://github.com/stefano-bragaglia/observer/graphs/contributors)
-[![GitHub stars](https://img.shields.io/github/stars/stefano-bragaglia/observer.svg)](https://github.com/stefano-bragaglia/observer/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/stefano-bragaglia/observer.svg)](https://github.com/stefano-bragaglia/observer/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/stefano-bragaglia/observer.svg)](https://github.com/stefano-bragaglia/observer/issues)
-[![GitHub closed issues](https://img.shields.io/github/issues-closed/stefano-bragaglia/observer.svg)](https://github.com/stefano-bragaglia/observer/issues?q=is%3Aissue+is%3Aclosed)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/stefano-bragaglia/observer.svg)](https://github.com/stefano-bragaglia/observer/pulls)
-[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/stefano-bragaglia/observer.svg)](https://github.com/stefano-bragaglia/observer/pulls?q=is%3Apr+is%3Aclosed)
-
 A folder-watching daemon that detects file creations, modifications, and deletions, and notifies a consumer via overridable hook methods. Pure polling — no `watchdog`, no OS-native filesystem-event API — so behavior is consistent across macOS, Linux, and Windows.
 
 ## CLI usage

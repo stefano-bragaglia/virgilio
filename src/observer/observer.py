@@ -102,12 +102,54 @@ class Observer:
 
     @classmethod
     def main(cls, argv: list[str] | None = None) -> None:
-        parser = argparse.ArgumentParser(prog="observer")
-        parser.add_argument("folder")
-        parser.add_argument("--recursive", "-r", action="store_true")
-        parser.add_argument("--interval", "-i", type=float, default=1.0)
-        parser.add_argument("--include-hidden", action="store_true")
-        parser.add_argument("--report-existing", action="store_true")
+        parser = argparse.ArgumentParser(
+            prog="observer",
+            description=(
+                "Watch a folder for file creations, modifications, and deletions. "
+                "Polls the filesystem rather than relying on OS-native filesystem-event "
+                "APIs, so behavior is consistent across macOS, Linux, and Windows. "
+                "Every event is logged to log.txt inside the watched folder."
+            ),
+            epilog=(
+                "Example: observer ./data --recursive --interval 0.5 "
+                "--include-hidden --report-existing"
+            ),
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        )
+        parser.add_argument(
+            "folder",
+            help="path to the directory to watch; must already exist",
+        )
+        parser.add_argument(
+            "--recursive",
+            "-r",
+            action="store_true",
+            help="watch the full subtree instead of just the folder's immediate contents",
+        )
+        parser.add_argument(
+            "--interval",
+            "-i",
+            type=float,
+            default=1.0,
+            metavar="SECONDS",
+            help="poll interval in seconds; may be a float (e.g. 0.25)",
+        )
+        parser.add_argument(
+            "--include-hidden",
+            action="store_true",
+            help=(
+                "include hidden files/directories (dotfiles) and symlinks in the "
+                "walk (excluded by default)"
+            ),
+        )
+        parser.add_argument(
+            "--report-existing",
+            action="store_true",
+            help=(
+                "fire a FOUND event for every pre-existing file at startup, "
+                "instead of silently indexing it"
+            ),
+        )
         args = parser.parse_args(argv)
 
         folder = Path(args.folder)
